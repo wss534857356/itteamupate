@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <include file="public/head"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+<body>
+<include file="public/navbar" home="主页"/>
+<div class="container">
+    <div class="col-md-2 list-group">
+        <a class="list-group-item" href="{:U('index')}">课程内容</a>
+        <a class="list-group-item" href="{:U('table')}">报名汇总</a>
+    </div>
+    <div class="col-md-10">
+        {__CONTENT__}
+    </div>
+</div>
+<include file="public/js"/>
+</body>
+</html>

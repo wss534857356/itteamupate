@@ -1,0 +1,93 @@
+<layout name="layout"/>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">选课列表</h3>
+    </div>
+    <ul class="list-group media-list">
+        <!--volist循环-->
+        <volist name="course" id="course" empty="暂无相关时间安排">
+            <if condition="$course['status'] eq 1 ">
+                <li class="list-group-item media">
+                    <div class="media-body">
+                        <h4 class="media-heading">
+                            <strong id="coursename">{$course['coursename']}</strong>({$course['coursedate']}
+                            <!--本周周{$course['week']}-->
+                            )
+                            <!--
+                                eq      :   ==
+                                neq     :   !=
+                                gt      :   >
+                                egt     :   >=
+                                lt      :   <
+                                elt     :   <=
+                                heq     :   ===
+                                nheq    :   !==
+                            -->
+                            <span class="label label-warning">导师-{$course['courseteacher']}</span>
+
+                            <!--if else-->
+                            <!--如果人数大于最大人数，则输出课程人满-->
+                            <if condition="$course['type'] eq 1">
+                                <if condition="$course['choose'] eq 1">
+                                    <form action="deleteEnroll" method="post" class="form">
+                                        <input name="courseid" class="sr-only" type="text"
+                                               value="{$course['courseid']}"/>
+                                        <button type="submit" class="pull-right btn btn-danger btn-up">取消报名</button>
+                                    </form>
+                                    <else/>
+                                    <if condition="$course['coursemaxNum'] lt $course['coursenum']">
+                                        <button type="submit" class="pull-right btn btn-warning disabled">人数已满</button>
+                                        <!--否则输出按钮-->
+                                        <elseif condition="$enrollnum neq 2" />
+                                            <form action="createEnroll" method="post">
+                                                <input name="courseid" class="sr-only" type="text"
+                                                       value="{$course['courseid']}"/>
+                                                <button type="submit"
+                                                        class="pull-right btn btn-success btn-up">点击报名</button>
+                                            </form>
+                                            <else />
+                                            <a type="submit" class="pull-right btn btn-success disabled">项目过多</a>
+                                    </if>
+                                </if>
+                                <else/>
+                                <a href="#" class="pull-right btn btn-default disabled">
+                                    必修课程
+                                </a>
+                            </if>
+                        </h4>
+                        <p>
+                            开始时间:{$course['coursestarttime']}-
+                            结束时间:{$course['courseendtime']}
+                        </p>
+                        <if condition="$course['type'] eq 1">
+                            <if condition="$course['progressbar'] lt 100">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-info" role="progressbar"
+                                         aria-valuenow="{$course['progressbar']}"
+                                         aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                                        <span>{$course['coursecountnum']}/{$course['coursemaxnum']}</span>
+                                    </div>
+                                </div>
+                                <else/>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-success" role="progressbar"
+                                         aria-valuenow="{$course['progressbar']}"
+                                         aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                                        <span>{$course['coursecountnum']}/{$course['coursemaxnum']}(人数已满！)</span>
+                                    </div>
+                                </div>
+                            </if>
+                        </if>
+                        <div>
+                            注释：
+                            <!--Volist循环嵌套输出tags标签-->
+                            <volist name="friend['tags']" id="tag">
+                                <span class="label label-success">{$tag}</span>
+                            </volist>
+                        </div>
+                    </div>
+                </li>
+            </if>
+        </volist>
+    </ul>
+</div>
