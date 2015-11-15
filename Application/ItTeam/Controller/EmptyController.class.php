@@ -14,10 +14,10 @@ class EmptyController extends Controller
     public function index()
     {
         //未找到时重定向至首页
-        $this->redirect('Index/index');
+        //$this->redirect('Index/index');
     }
     public function _empty(){
         //未找到时重定向至首页
-        $this->redirect('Index/index');
+        //$this->redirect('Index/index');
     }
 }

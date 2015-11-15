@@ -1,0 +1,1 @@
+a:6:{i:0;s:7:"learnId";i:1;s:9:"studentId";i:2;s:8:"courseId";i:3;s:4:"time";s:3:"_pk";s:7:"learnId";s:5:"_type";a:4:{s:7:"learnId";s:12:"mediumint(9)";s:9:"studentId";s:6:"int(9)";s:8:"courseId";s:12:"mediumint(9)";s:4:"time";s:8:"datetime";}}

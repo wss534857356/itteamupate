@@ -1,0 +1,1 @@
+a:7:{i:0;s:9:"studentId";i:1;s:8:"userName";i:2;s:8:"password";i:3;s:4:"type";i:4;s:6:"status";s:3:"_pk";s:9:"studentId";s:5:"_type";a:5:{s:9:"studentId";s:6:"int(9)";s:8:"userName";s:12:"varchar(255)";s:8:"password";s:12:"varchar(255)";s:4:"type";s:10:"tinyint(2)";s:6:"status";s:10:"tinyint(2)";}}

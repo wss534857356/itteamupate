@@ -8,10 +8,12 @@
 <!--&lt;!&ndash; Bootstrap CSS &ndash;&gt;-->
 <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" media="screen">-->
 <!--css-->
-<link rel="stylesheet" type="text/css" href="/thinkphp_3.2.3_core/Public/css/bootstrap.css" />
-<link rel="stylesheet" type="text/css" href="/thinkphp_3.2.3_core/Public/css/font.css" />
+<link rel="stylesheet" type="text/css" href="/itteam/Public/css/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="/itteam/Public/css/font.css" />
 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+    <link rel="shortcut icon" href="/itteam/Public/img/favicon.ico" type="image/x-icon" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
 <body>
 <nav class="navbar navbar-default" role="navigation">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -72,7 +74,71 @@
     </div>
     <div class="col-md-10">
         
-<link rel="stylesheet" type="text/css" href="/thinkphp_3.2.3_core/Public/css/supplement.css" />
+<link rel="stylesheet" type="text/css" href="/itteam/Public/css/supplement.css" />
+<?php if(is_array($elective)): $i = 0; $__LIST__ = $elective;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$elective): $mod = ($i % 2 );++$i; if($elective['status'] == 1 ): ?><div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title title">
+                    <strong class="elective"><?php echo ($elective['coursename']); ?></strong>
+                    <a class="btn  disabled">导师-<?php echo ($elective['courseteacher']); ?></a>
+                </h3>
+            </div>
+            <?php if(is_array($elective["choose"])): $i = 0; $__LIST__ = $elective["choose"];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$choose): $mod = ($i % 2 );++$i;?><div class="accordion-inner">
+                    <ul class="list-group media-list">
+                        <li class="list-group-item media">
+                            <div class="media-body">
+                                <h4 class="media-heading">
+                                    <a type="submit" class="pull-right btn btn-default" data-toggle="collapse"
+                                       data-parent="#accordion2" href="#<?php echo ($choose['chooseid']); ?>">展开名单</a>
+
+                                    <p>时间:<?php echo ($choose["choosedate"]); ?> 周<?php echo ($choose['week']); ?></p>
+
+                                    <p>备注信息:<?php echo ($choose['choosetext']); ?></p>
+
+                                    <p>
+                                        开始时间:<?php echo ($choose['choosestarttime']); ?>-
+                                        结束时间:<?php echo ($choose['chooseendtime']); ?>
+                                    </p>
+
+                                </h4>
+                            </div>
+                            <?php if($choose['type'] == 1): if($choose['progressbar'] < 100): ?><div class="progress">
+                                        <div class="progress-bar progress-bar-info" role="progressbar"
+                                             aria-valuenow="<?php echo ($choose['progressbar']); ?>"
+                                             aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                                            <span><?php echo ($choose['choosenum']); ?>/<?php echo ($choose['choosemaxnum']); ?></span>
+                                        </div>
+                                    </div>
+                                    <?php else: ?>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-success" role="progressbar"
+                                             aria-valuenow="<?php echo ($choose['progressbar']); ?>"
+                                             aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                                            <span><?php echo ($choose['choosenum']); ?>/<?php echo ($choose['choosemaxnum']); ?></span>
+                                        </div>
+                                    </div><?php endif; endif; ?>
+                        </li>
+                    </ul>
+                </div>
+                <div id="<?php echo ($choose['chooseid']); ?>" class="accordion-body collapse" style="height: 0px;">
+                    <?php if($choose['choosenum'] > 0): ?><div class="accordion-inner">
+                            <table class="table table-hover table-bordered">
+                                <thead>
+                                <tr>
+                                    <td>学生学号</td>
+                                    <td>学生姓名</td>
+                                </tr>
+                                </thead>
+                                <?php if(is_array($choose["electivearray"])): $i = 0; $__LIST__ = $choose["electivearray"];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$array): $mod = ($i % 2 );++$i;?><tbody>
+                                    <tr>
+                                        <td><?php echo ($array['studentid']); ?></td>
+                                        <td><?php echo ($array['username']); ?></td>
+                                    </tr><?php endforeach; endif; else: echo "" ;endif; ?>
+                                </tbody>
+                            </table>
+                        </div><?php endif; ?>
+                </div><?php endforeach; endif; else: echo "" ;endif; ?>
+        </div><?php endif; endforeach; endif; else: echo "" ;endif; ?>
+<!--
 <?php if(is_array($elective)): $i = 0; $__LIST__ = $elective;if( count($__LIST__)==0 ) : echo "暂无课程" ;else: foreach($__LIST__ as $key=>$elective): $mod = ($i % 2 );++$i;?><div class="panel panel-default">
         <a class="panel-title" data-toggle="collapse" data-parent="#accordion2" href="#<?php echo ($elective['coursename']); ?>">
             <div class="panel-heading">
@@ -80,25 +146,9 @@
             </div>
         </a>
 
-        <div id="<?php echo ($elective['coursename']); ?>" class="accordion-body collapse" style="height: 0px;">
-            <div class="accordion-inner">
-                <table class="table table-hover table-bordered">
-                    <thead>
-                    <tr>
-                        <td>学生学号</td>
-                        <td>学生姓名</td>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php if(is_array($elective["electivearray"])): $i = 0; $__LIST__ = $elective["electivearray"];if( count($__LIST__)==0 ) : echo "还没有人报名哦" ;else: foreach($__LIST__ as $key=>$array): $mod = ($i % 2 );++$i;?><tr>
-                            <td><?php echo ($array['studentid']); ?></td>
-                            <td><?php echo ($array['username']); ?></td>
-                        </tr><?php endforeach; endif; else: echo "暂无课程" ;endif; ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div><?php endforeach; endif; else: echo "还没有人报名哦" ;endif; ?>
+
+    </div><?php endforeach; endif; else: echo "暂无课程" ;endif; ?>
+-->
 
     </div>
 </div>
@@ -107,14 +157,14 @@
 <!--&lt;!&ndash; Bootstrap JavaScript &ndash;&gt;-->
 <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>-->
 <!--load-->
-<script type="text/javascript" src="/thinkphp_3.2.3_core/Public/js/jquery-1.11.3.js"></script>
+<script type="text/javascript" src="/itteam/Public/js/jquery-1.11.3.js"></script>
 
 <!--js-->
-<script type="text/javascript" src="/thinkphp_3.2.3_core/Public/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/itteam/Public/js/bootstrap.min.js"></script>
 
 <!--layer-->
-<script type="text/javascript" src="/thinkphp_3.2.3_core/Public/js/layer/layer.js"></script>
-<script type="text/javascript" src="/thinkphp_3.2.3_core/Public/js/supplement.js"></script>
+<script type="text/javascript" src="/itteam/Public/js/layer/layer.js"></script>
+<script type="text/javascript" src="/itteam/Public/js/supplement.js"></script>
 
 </body>
 </html>

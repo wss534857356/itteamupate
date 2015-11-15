@@ -1,9 +1,15 @@
-
 .table td{
     text-align: center;
     font-family: 宋体;
     font-size: 15px;
 }
+
 a.panel-title{
     text-decoration: none;
+}
+.title{
+    display: block;
+}
+hr{
+    height: 0.1em;
 }

@@ -11,7 +11,9 @@
 <link rel="stylesheet" type="text/css" href="/itteam/Public/css/bootstrap.css" />
 <link rel="stylesheet" type="text/css" href="/itteam/Public/css/font.css" />
 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+    <link rel="shortcut icon" href="/itteam/Public/img/favicon.ico" type="image/x-icon" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
 <body>
 <nav class="navbar navbar-default" role="navigation">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -98,7 +100,7 @@
 
                             <!--if else-->
                             <!--如果人数大于最大人数，则输出课程人满-->
-                            <?php if($course['type'] == 1): if($course['choose'] == 1): ?><form action="deleteEnroll" method="post" class="form">
+                            <?php if($course['type'] == 1): if($course['choose'] == 1): ?><form action="<?php echo U('Index/deleteEnroll');?>" method="post" class="form">
                                         <input name="courseid" class="sr-only" type="text"
                                                value="<?php echo ($course['courseid']); ?>"/>
                                         <button type="submit" class="pull-right btn btn-danger btn-up">取消报名</button>
@@ -107,7 +109,7 @@
                                     <?php if($course['coursemaxNum'] < $course['coursenum']): ?><button type="submit" class="pull-right btn btn-warning disabled">人数已满</button>
                                         <!--否则输出按钮-->
                                         <?php elseif($enrollnum != 2): ?>
-                                            <form action="createEnroll" method="post">
+                                            <form action="<?php echo U('Index/createEnroll');?>" method="post">
                                                 <input name="courseid" class="sr-only" type="text"
                                                        value="<?php echo ($course['courseid']); ?>"/>
                                                 <button type="submit"

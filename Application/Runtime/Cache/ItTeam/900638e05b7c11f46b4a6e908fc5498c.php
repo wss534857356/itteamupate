@@ -5,8 +5,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0"/>
     <title>登入窗口</title>
-    <link rel="stylesheet" type="text/css" href="/thinkphp_3.2.3_core/Public/css/loginface.css" />
-    <link rel="stylesheet" type="text/css" href="/thinkphp_3.2.3_core/Public/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/itteam/Public/css/loginface.css" />
+    <link rel="stylesheet" type="text/css" href="/itteam/Public/css/bootstrap.min.css" />
 </head>
 
 <body>
@@ -32,7 +32,7 @@
                         <div class="col-xs-8 col-xs-offset-2 ">
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-th-list"></span></span>
-                                <input type="password" id="studentid" name="studentid" class="form-control" placeholder="学号">
+                                <input type="password" id="password" name="password" class="form-control" placeholder="密码">
                             </div>
                         </div>
                     </div>

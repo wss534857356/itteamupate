@@ -1,0 +1,143 @@
+<layout name="layout"/>
+<css href="__PUBLIC__/css/supplement.css"/>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a class="panel-title menu" data-toggle="collapse" data-parent="#accordion2" href="#compulsory">
+            <span class="pull-right min_font">收起菜单</span>
+        </a>
+
+        <h3 class="panel-title title">必修课程</h3>
+    </div>
+    <div id="compulsory" class="accordion-body collapse in">
+        <div class="accordion-inner">
+            <ul class="list-group media-list">
+                <!--volist循环-->
+                <volist name="compulsory" id="course" empty="暂无课程">
+                    <if condition="$course['status'] eq 1 ">
+                        <li class="list-group-item media">
+                            <div class="media-body">
+                                <h4 class="media-heading">
+                                    <p>
+                                        <strong class="coursename">{$course['coursename']}</strong>
+                                        <a class="btn  disabled">导师-{$course['courseteacher']}</a>
+                                    </p>
+
+                                    <p>课程介绍:{$course['coursetext']}</p>
+                                    <volist name="course.choose" id="choose" empty="暂无相关时间安排">
+                                        <hr/>
+                                        <p>时间:{$choose['choosedate']} 周{$choose['week']}</p>
+
+                                        <p>备注信息:{$choose['choosetext']}</p>
+
+                                        <p>
+                                            开始时间:{$choose['choosestarttime']}-
+                                            结束时间:{$choose['chooseendtime']}
+                                        </p>
+                                    </volist>
+                                </h4>
+                            </div>
+                        </li>
+                    </if>
+                </volist>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">选课列表</h3>
+    </div>
+    <ul class="list-group media-list">
+        <!--volist循环-->
+        <volist name="obligatory" id="course" empty="暂无相关时间安排">
+            <if condition="$course['status'] eq 1 ">
+                <li class="list-group-item media">
+                    <div class="media-body">
+                        <h4 class="media-heading">
+                            <p>
+                                <strong class="coursename">{$course['coursename']}</strong>
+                                <a class="btn  disabled">导师-{$course['courseteacher']}</a>
+                            </p>
+                            <!--if else-->
+                            <!--如果人数大于最大人数，则输出课程人满-->
+                            <p>课程介绍:{$course['coursetext']}</p>
+
+                            <volist name="course.choose" id="choose" empty="暂无相关时间安排">
+                                <hr/>
+                                <switch name="choose.ifchoose">
+                                    <case value="1">
+                                        <form action="{:U('Index/deleteEnroll')}" method="post">
+                                            <input name="chooseid" class="sr-only" type="text"
+                                                   value="{$choose['chooseid']}"/>
+                                            <button type="submit" class="pull-right btn btn-danger">取消报名</button>
+                                        </form>
+                                    </case>
+                                    <case value="2">
+                                        <button type="submit"
+                                                class="pull-right btn disabled">全报好啦</button>
+                                    </case>
+                                    <case value="3">
+                                        <button type="submit"
+                                                class="pull-right btn btn-success disabled">人数已满</button>
+                                    </case>
+                                    <case value="4">
+                                        <button type="submit"
+                                                class="pull-right btn btn-warning disabled">重复项目</button>
+                                    </case>
+                                    <case value="5">
+                                        <button type="submit"
+                                                class="pull-right btn disabled">项目过时</button>
+                                    </case>
+                                    <default />
+                                    <form action="{:U('Index/createEnroll')}" method="post">
+                                        <input name="chooseid" class="sr-only" type="text"
+                                               value="{$choose['chooseid']}"/>
+                                        <button type="submit"
+                                                class="pull-right btn btn-success">点击报名</button>
+                                    </form>
+                                    <a class="pull-right btn disabled">报名时间截至周五</a>
+                                </switch>
+                                <p>时间:{$choose['choosedate']} 周{$choose['week']}</p>
+                                <p>备注信息:{$choose['choosetext']}</p>
+                                <p>
+                                    开始时间:{$choose['choosestarttime']}-
+                                    结束时间:{$choose['chooseendtime']}
+                                </p>
+                                <if condition="$choose['type'] eq 1">
+                                    <if condition="$choose['progressbar'] lt 100">
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-info" role="progressbar"
+                                                 aria-valuenow="{$choose['progressbar']}"
+                                                 aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                                                <span>{$choose['choosenum']}/{$choose['choosemaxnum']}</span>
+                                            </div>
+                                        </div>
+                                        <else/>
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-success" role="progressbar"
+                                                 aria-valuenow="{$choose['progressbar']}"
+                                                 aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                                                <span>{$choose['choosenum']}/{$choose['choosemaxnum']}</span>
+                                            </div>
+                                        </div>
+                                    </if>
+                                </if>
+                            </volist>
+                        </h4>
+                    </div>
+                </li>
+            </if>
+        </volist>
+    </ul>
+</div>
+
+<!--
+ eq      :   ==
+ neq     :   !=
+ gt      :   >
+ egt     :   >=
+ lt      :   <
+ elt     :   <=
+ heq     :   ===
+ nheq    :   !==
+ -->

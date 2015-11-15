@@ -34,29 +34,19 @@ function getWeek($date)
 
 function getProgressBar($Data, $DataMax)
 {
-    return $Data / $DataMax * 100;
+    return $Data/$DataMax * 100;
 }
 
-function getFollowNum($courseid)
+function getFollowNum($chooseId)
 {
     $num = D('Student')
         ->where(
             array(
-                'courseId' => $courseid,
+                'chooseId' => $chooseId,
             )
         )
         ->count();
     return $num;
-}
-
-function pushCourseArray($arr)
-{
-    foreach ($arr as $key => $values) {
-        $arr[$key]['week'] = getWeek($values['courseDate']);
-        $arr[$key]['coursecountnum'] = getFollowNum($values['courseid']);
-        $arr[$key]['progressbar'] = getProgressBar($arr[$key]['coursecountnum'], $values['coursemaxnum']);
-    }
-    return $arr;
 }
 function getEnrollNum($studentId){
     $arr=array(
@@ -64,15 +54,4 @@ function getEnrollNum($studentId){
     );
     $EnrollNum=D('Student')->where($arr)->count();
     return $EnrollNum;
-}
-function checkEnroll($courseId,$studentId){
-    $checkEnroll=D('Student')
-        ->where(
-            array(
-                'courseId'=>$courseId,
-                'studentId'=>$studentId,
-            )
-        )
-        ->count();
-    return $checkEnroll;
 }

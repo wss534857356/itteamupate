@@ -1,5 +1,8 @@
-#coursename{
-    font-family: 黑体;
+strong.coursename{
+    font-family: 宋体;
+}
+.min_font{
+    font-size: 0.8em;
 }
 .alpha50{
     filter:alpha(opacity=50);
